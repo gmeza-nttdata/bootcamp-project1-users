@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class SpringConfiguration {
 
     @Bean
-    public UserRepository clientRepository() {
+    public UserRepository userRepository() {
         return new UserCrudRepository();
     }
 
