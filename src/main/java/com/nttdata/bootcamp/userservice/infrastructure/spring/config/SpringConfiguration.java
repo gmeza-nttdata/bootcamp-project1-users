@@ -1,7 +1,7 @@
-package com.nttdata.bootcamp.project1.users.infrastructure.spring.config;
+package com.nttdata.bootcamp.userservice.infrastructure.spring.config;
 
-import com.nttdata.bootcamp.project1.users.application.repository.UserRepository;
-import com.nttdata.bootcamp.project1.users.infrastructure.repository.UserCrudRepository;
+import com.nttdata.bootcamp.userservice.application.repository.UserRepository;
+import com.nttdata.bootcamp.userservice.infrastructure.repository.UserCrudRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

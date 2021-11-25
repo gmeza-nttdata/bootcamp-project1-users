@@ -1,6 +1,6 @@
-package com.nttdata.bootcamp.project1.users.infrastructure.model.dao;
+package com.nttdata.bootcamp.userservice.infrastructure.model.dao;
 
-import com.nttdata.bootcamp.project1.users.domain.User;
+import com.nttdata.bootcamp.userservice.domain.User;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,6 +1,6 @@
-package com.nttdata.bootcamp.project1.users.application.repository;
+package com.nttdata.bootcamp.userservice.application.repository;
 
-import com.nttdata.bootcamp.project1.users.domain.User;
+import com.nttdata.bootcamp.userservice.domain.User;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -1,8 +1,8 @@
-package com.nttdata.bootcamp.project1.users.infrastructure.repository;
+package com.nttdata.bootcamp.userservice.infrastructure.repository;
 
-import com.nttdata.bootcamp.project1.users.application.repository.UserRepository;
-import com.nttdata.bootcamp.project1.users.domain.User;
-import com.nttdata.bootcamp.project1.users.infrastructure.model.dao.UserDao;
+import com.nttdata.bootcamp.userservice.application.repository.UserRepository;
+import com.nttdata.bootcamp.userservice.domain.User;
+import com.nttdata.bootcamp.userservice.infrastructure.model.dao.UserDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

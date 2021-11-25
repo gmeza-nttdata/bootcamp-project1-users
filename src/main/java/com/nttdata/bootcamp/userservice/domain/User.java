@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.project1.users.domain;
+package com.nttdata.bootcamp.userservice.domain;
 
 import lombok.Data;
 import java.time.LocalDate;

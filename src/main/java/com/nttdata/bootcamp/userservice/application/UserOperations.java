@@ -1,6 +1,6 @@
-package com.nttdata.bootcamp.project1.users.application;
+package com.nttdata.bootcamp.userservice.application;
 
-import com.nttdata.bootcamp.project1.users.domain.User;
+import com.nttdata.bootcamp.userservice.domain.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.project1.users;
+package com.nttdata.bootcamp.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

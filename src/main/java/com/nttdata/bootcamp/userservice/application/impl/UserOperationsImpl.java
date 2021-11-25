@@ -1,8 +1,8 @@
-package com.nttdata.bootcamp.project1.users.application.impl;
+package com.nttdata.bootcamp.userservice.application.impl;
 
-import com.nttdata.bootcamp.project1.users.application.UserOperations;
-import com.nttdata.bootcamp.project1.users.domain.User;
-import com.nttdata.bootcamp.project1.users.application.repository.UserRepository;
+import com.nttdata.bootcamp.userservice.application.UserOperations;
+import com.nttdata.bootcamp.userservice.domain.User;
+import com.nttdata.bootcamp.userservice.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.project1.users;
+package com.nttdata.bootcamp.userservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

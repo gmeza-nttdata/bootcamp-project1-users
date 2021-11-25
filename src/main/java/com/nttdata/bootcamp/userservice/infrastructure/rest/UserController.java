@@ -1,7 +1,7 @@
-package com.nttdata.bootcamp.project1.users.infrastructure.rest;
+package com.nttdata.bootcamp.userservice.infrastructure.rest;
 
-import com.nttdata.bootcamp.project1.users.application.UserOperations;
-import com.nttdata.bootcamp.project1.users.domain.User;
+import com.nttdata.bootcamp.userservice.application.UserOperations;
+import com.nttdata.bootcamp.userservice.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
