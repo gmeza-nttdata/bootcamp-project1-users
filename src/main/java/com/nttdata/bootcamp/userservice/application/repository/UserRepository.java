@@ -8,10 +8,10 @@ import reactor.core.publisher.Mono;
 @Component
 public interface UserRepository {
 
-    Mono<User> getClientById(Integer id);
+    Mono<User> getUserById(Integer id);
     Flux<User> getAll();
-    Mono<User>  createClient(User user);
-    Mono<User>  updateClient(Integer id, User user);
-    Mono<Void> deleteClientById(Integer id);
+    Mono<User> createUser(User user);
+    Mono<User> updateUser(Integer id, User user);
+    Mono<Void> deleteUserById(Integer id);
 
 }

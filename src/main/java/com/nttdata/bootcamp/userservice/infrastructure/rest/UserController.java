@@ -3,40 +3,62 @@ package com.nttdata.bootcamp.userservice.infrastructure.rest;
 import com.nttdata.bootcamp.userservice.application.UserOperations;
 import com.nttdata.bootcamp.userservice.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserOperations userOperations;
+    private final UserOperations operations;
 
-    @GetMapping
-    public Flux<User> get() {
-        return userOperations.queryAll();
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<Flux<User>>> get() {
+        return Mono.just(ResponseEntity.ok(operations.queryAll()));
     }
 
-    @GetMapping("/{id}")
-    public Mono<User> get(@PathVariable Integer id) {
-        return userOperations.findById(id);
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<User>> get(@PathVariable Integer id) {
+        return Mono.just(id)
+                .flatMap(operations::findById)
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
-    @PostMapping
-    public Mono<User> post(@RequestBody User entity) {
-        return userOperations.create(entity);
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<User>> post(@RequestBody User user) {
+        return operations.findById(user.getId())
+                .switchIfEmpty(Mono.just(user)
+                        .flatMap(operations::create))
+                .map(this::postResponse);
     }
 
-    @PutMapping("/{id}")
-    public Mono<User> put(@PathVariable Integer id, @RequestBody User user) {
-        return userOperations.update(id, user);
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<User>> put(@PathVariable Integer id, @RequestBody User user) {
+        return operations.findById(id)
+                .flatMap(u-> operations.update(id, user))
+                .map(this::postResponse)
+                .defaultIfEmpty(ResponseEntity.notFound().build())
+                .onErrorReturn(ResponseEntity.badRequest().build());
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> delete(@PathVariable Integer id) {
-        return userOperations.delete(id);
+    public Mono<ResponseEntity<Void>> delete(@PathVariable Integer id) {
+        return operations.findById(id)
+                .flatMap(user -> operations.delete(user.getId())
+                        .thenReturn(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    private ResponseEntity<User> postResponse(User user) {
+        return ResponseEntity.created(URI.create("/users/" + user.getId().toString())).body(user);
     }
 
 }

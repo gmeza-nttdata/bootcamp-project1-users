@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MockUserRepository implements UserRepository {
 
     @Override
-    public Mono<User> getClientById(Integer id) {
+    public Mono<User> getUserById(Integer id) {
         User user = new User();
         user.setAddress("Evergreen 123");
         user.setBirthDate(LocalDate.MIN);
@@ -29,18 +29,18 @@ public class MockUserRepository implements UserRepository {
     }
 
     @Override
-    public Mono<User> createClient(User user) {
+    public Mono<User> createUser(User user) {
         user.setId(2);
         return Mono.justOrEmpty(user);
     }
 
     @Override
-    public Mono<User> updateClient(Integer id, User user) {
+    public Mono<User> updateUser(Integer id, User user) {
         return null;
     }
 
     @Override
-    public Mono<Void> deleteClientById(Integer id) {
+    public Mono<Void> deleteUserById(Integer id) {
         return null;
     }
 }

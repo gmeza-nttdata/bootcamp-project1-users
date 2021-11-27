@@ -22,21 +22,21 @@ public class UserOperationsImpl implements UserOperations {
 
     @Override
     public Mono<User> findById(Integer id) {
-        return userRepository.getClientById(id);
+        return userRepository.getUserById(id);
     }
 
     @Override
     public Mono<User>  create(User user) {
-        return userRepository.createClient(user);
+        return userRepository.createUser(user);
     }
 
     @Override
     public Mono<User>  update(Integer id, User user) {
-        return userRepository.updateClient(id, user);
+        return userRepository.updateUser(id, user);
     }
 
     @Override
     public Mono<Void> delete(Integer id) {
-        return userRepository.deleteClientById(id);
+        return userRepository.deleteUserById(id);
     }
 }
