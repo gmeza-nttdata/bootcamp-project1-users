@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.userservice.infrastructure.mockRepository;
+package com.nttdata.bootcamp.userservice.infrastructure.mockrepository;
 
 import com.nttdata.bootcamp.userservice.application.repository.UserRepository;
 import com.nttdata.bootcamp.userservice.domain.User;

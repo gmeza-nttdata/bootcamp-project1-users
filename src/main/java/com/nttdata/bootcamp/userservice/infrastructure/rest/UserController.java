@@ -2,7 +2,9 @@ package com.nttdata.bootcamp.userservice.infrastructure.rest;
 
 import com.nttdata.bootcamp.userservice.application.UserOperations;
 import com.nttdata.bootcamp.userservice.domain.User;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +14,13 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
+    private static final String USER_SERVICE = "userService";
     private final UserOperations operations;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CircuitBreaker(name=USER_SERVICE, fallbackMethod = "userFallback")
     public Mono<ResponseEntity<User>> get(@PathVariable Integer id) {
         return Mono.just(id)
                 .flatMap(operations::findById)
@@ -33,6 +38,7 @@ public class UserController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CircuitBreaker(name=USER_SERVICE, fallbackMethod = "userFallback")
     public Mono<ResponseEntity<User>> post(@RequestBody User user) {
         return operations.findById(user.getId())
                 .switchIfEmpty(Mono.just(user)
@@ -41,6 +47,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CircuitBreaker(name=USER_SERVICE, fallbackMethod = "userFallback")
     public Mono<ResponseEntity<User>> put(@PathVariable Integer id, @RequestBody User user) {
         return operations.findById(id)
                 .flatMap(u-> operations.update(id, user))
@@ -59,6 +66,11 @@ public class UserController {
 
     private ResponseEntity<User> postResponse(User user) {
         return ResponseEntity.created(URI.create("/users/" + user.getId().toString())).body(user);
+    }
+
+    public Mono<ResponseEntity<User>> userFallback(Exception e) {
+        log.error(e.toString());
+        return Mono.just(new ResponseEntity<>(new User(), HttpStatus.SERVICE_UNAVAILABLE));
     }
 
 }
