@@ -26,5 +26,9 @@ public class User {
     private String address;
     /** Birthdate of user. */
     private LocalDate birthDate;
+    /** Email. */
+    private String email;
+    /** Phone Number. */
+    private String phone;
 
 }
